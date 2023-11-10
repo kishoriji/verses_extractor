@@ -25,12 +25,12 @@ def extract_audio(txt_filepath, audio_filepath, export_path):
             sloka_verse_no, start_time_str, end_time_str = [item.strip() for item in line.strip().split(',')]
             start_time, end_time = convert_time(start_time_str), convert_time(end_time_str)
             slokas.append((sloka_verse_no, start_time, end_time))
-    sloka = slokas[3]
+    sloka = slokas[4]
     sloka_verse_no, start_time, end_time = sloka
     print(sloka_verse_no, start_time, end_time)
     output_file = f"{export_path}/{sloka_verse_no}.mp3"
     chunk = split_audio(audio_filepath, start_time, end_time)
-    #play(chunk)
+    play(chunk)
     chunk.export(output_file, format="mp3")
 
 
