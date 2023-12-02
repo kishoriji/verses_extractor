@@ -37,9 +37,23 @@ def extract_audio(txt_filepath, audio_filepath, export_path):
     chunk.export(output_file, format="mp3")
 
 
-if __name__ == '__main__':
+def main():
     name = 'Brahm Jeev Maya Kya Hai 16 [ei6Z8RaB2N0]'
     txt_filepath = f'slokas_location_in_lecture/{name}.txt'
-    audio_filepath = f"/Users/akashmatterlabs/Downloads/translate/{name}.mp3"
+    audio_filepath = f"/Users/kishoriji/sadhana/audio/{name}.mp3"
     export_path = f'slokas/{name}'
     extract_audio(txt_filepath, audio_filepath, export_path)
+
+
+def trim_one():
+    start = convert_time('49:55', 0)
+    end = convert_time('50:1', 0)
+    output_file = 'tmp.mp3'
+    chunk = split_audio('Shruti_Siddhant_Saar_5_12420.mp3', start, end)
+    play(chunk)
+    chunk.export(output_file, format="mp3")
+
+
+if __name__ == '__main__':
+    # main()
+    trim_one()
