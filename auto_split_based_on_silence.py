@@ -1,23 +1,7 @@
 from pydub import AudioSegment
 from pydub.silence import detect_nonsilent
 
-
-# def convert_time(str_time, offset):
-#     parts = str_time.split(':')
-#     m, s = map(int, parts[:2])
-#     d = int(parts[2]) if len(parts) > 2 else 0
-#     time_in_seconds = m * 60 + s + d / 10
-#     return time_in_seconds + offset
-
-def convert_time(str_time, offset):
-    parts = str_time.split(':')
-    h, m, s = [0] * 3
-    if len(parts) == 3:
-        h, m, s = map(int, parts)
-    elif len(parts) == 2:
-        m, s = map(int, parts)
-    time_in_seconds = h * 3600 + m * 60 + s
-    return time_in_seconds + offset
+from utils import convert_time
 
 
 def split_audio(filepath, start_time, end_time):
