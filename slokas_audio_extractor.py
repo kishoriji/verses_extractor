@@ -46,10 +46,10 @@ def main():
 
 
 def trim_one():
-    start = convert_time('49:55', 0)
-    end = convert_time('50:1', 0)
+    start = convert_time('10:13', 0)
+    end = convert_time('11:14', 0)
     output_file = 'tmp.mp3'
-    chunk = split_audio('Shruti_Siddhant_Saar_5_12420.mp3', start, end)
+    chunk = split_audio('/Users/kishoriji/Downloads/अपनी दिनचर्या को इस तरीके से संभालिये .mp3', start, end)
     play(chunk)
     chunk.export(output_file, format="mp3")
 
