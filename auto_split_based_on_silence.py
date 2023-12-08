@@ -1,3 +1,5 @@
+import os
+
 from pydub import AudioSegment
 from pydub.silence import detect_nonsilent
 
@@ -60,11 +62,17 @@ def extract_audio(txt_filepath, audio_filepath, export_path):
 
 
 def main():
-    name = 'Shruti Siddhant Saar/Shruti_Siddhant_Saar_4_12419'
-    txt_filepath = f'slokas_location_in_lecture/{name}.txt'
-    audio_filepath = f"/Users/kishoriji/sadhana/audio/{name}.mp3"
-    export_path = f'slokas/{name}'
-    extract_audio(txt_filepath, audio_filepath, export_path)
+    for root, dirs, files in os.walk('slokas_location_in_lecture/brahm jeev maya'):
+        print(root, files)
+        for txt_filename in files:
+            without_ext = txt_filename.split('.')[0]
+            print(f'processing {without_ext}')
+            name = f'brahm jeev maya/{without_ext}'
+            # name = 'Shruti Siddhant Saar/Shruti_Siddhant_Saar_4_12419'
+            txt_filepath = f'slokas_location_in_lecture/{name}.txt'
+            audio_filepath = f"/Users/kishoriji/sadhana/audio/{name}.mp3"
+            export_path = f'slokas/{name}'
+            extract_audio(txt_filepath, audio_filepath, export_path)
 
 
 if __name__ == '__main__':

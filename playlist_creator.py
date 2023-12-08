@@ -2,7 +2,7 @@ import os
 
 
 def main():
-    name = 'Shruti Siddhant Saar/Shruti_Siddhant_Saar_1_12416'
+    name = 'Shruti Siddhant Saar/Shruti_Siddhant_Saar_2_12417'
     folder_path = os.path.abspath(f'slokas/{name}')  # get absolute path of the directory
     playlist_path = f"{folder_path}/playlist.m3u"
 
