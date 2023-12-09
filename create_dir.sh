@@ -1,7 +1,7 @@
 #!/bin/bash
 
-SOURCE_DIR="/Users/kishoriji/code/kripaluji-audio/slokas_location_in_lecture/brahm jeev maya"
-DEST_DIR="/Users/kishoriji/code/kripaluji-audio/slokas/brahm jeev maya"
+SOURCE_DIR="/Users/kishoriji/code/kripaluji-audio/slokas_location_in_lecture/Radha Tattva"
+DEST_DIR="/Users/kishoriji/code/kripaluji-audio/slokas/Radha Tattva"
 
 for file in "$SOURCE_DIR"/*.txt
 do

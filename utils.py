@@ -34,7 +34,7 @@ def check_time_increasing(txt_filepath):
 
 
 if __name__ == '__main__':
-    for root, dirs, files in os.walk('slokas_location_in_lecture/brahm jeev maya'):
+    for root, dirs, files in os.walk('slokas_location_in_lecture/Radha Tattva'):
         files = [os.path.join(root, name) for name in files]  # add directory path to filenames
         for file in files:
             print(file)

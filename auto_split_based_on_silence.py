@@ -1,6 +1,7 @@
 import os
 
 from pydub import AudioSegment
+from pydub.playback import play
 from pydub.silence import detect_nonsilent
 
 from utils import convert_time
@@ -33,20 +34,42 @@ def find_start_end_times(audio_segment, min_silence_len=500, silence_thresh=-40)
     return None, None
 
 
+import subprocess
+
+
+def git_diff_lines(filepath):
+    # Get the output of git diff command as a string
+    diff_output = subprocess.check_output(['git', 'diff', 'HEAD', filepath]).decode()
+
+    changed_lines = []
+    for line in diff_output.split('\n'):
+        # Only new lines start with a '+', but skip the '+++' line
+        if line.startswith('+') and not line.startswith('+++'):
+            # Remove the '+' at the beginning and strip extra whitespaces
+            changed_line = line[1:].strip()
+            changed_lines.append(changed_line)
+
+    return changed_lines
+
+
 def extract_audio(txt_filepath, audio_filepath, export_path):
     slokas = []
-    with open(txt_filepath, 'r', encoding='utf-8') as file:
-        # offset_line = file.readline()
-        # offset = float(offset_line.strip())
-        offset = 0
-        for line in file.readlines():
-            items = [item.strip() for item in line.strip().split(',')]
-            if len(items) < 3:
-                print(f'Skipping {items}')
-                continue
-            sloka_verse_no, start_time_str, end_time_str = items
-            start_time, end_time = convert_time(start_time_str, offset), convert_time(end_time_str, offset)
-            slokas.append((sloka_verse_no, start_time, end_time))
+
+    # offset_line = file.readline()
+    # offset = float(offset_line.strip())
+    offset = 0
+    lines = git_diff_lines(txt_filepath)
+    print(f'processing {len(lines)} lines')
+    for line in lines:
+        print(line)
+        items = [item.strip() for item in line.strip().split(',')]
+        if len(items) < 3:
+            print(f'Skipping {items}')
+            continue
+        sloka_verse_no, start_time_str, end_time_str = items
+        start_time, end_time = convert_time(start_time_str, offset), convert_time(end_time_str, offset)
+        slokas.append((sloka_verse_no, start_time, end_time))
+
     sloka_counts = {}
     for sloka in slokas:
         sloka_verse_no, start_time, end_time = sloka
@@ -58,21 +81,16 @@ def extract_audio(txt_filepath, audio_filepath, export_path):
             sloka_counts[sloka_verse_no] += 1
             output_file = f"{export_path}/{sloka_verse_no}_{sloka_counts[sloka_verse_no]}.mp3"
         chunk = split_audio(audio_filepath, start_time, end_time)
+        play(chunk)
         chunk.export(output_file, format="mp3")
 
 
 def main():
-    for root, dirs, files in os.walk('slokas_location_in_lecture/brahm jeev maya'):
-        print(root, files)
-        for txt_filename in files:
-            without_ext = txt_filename.split('.')[0]
-            print(f'processing {without_ext}')
-            name = f'brahm jeev maya/{without_ext}'
-            # name = 'Shruti Siddhant Saar/Shruti_Siddhant_Saar_4_12419'
-            txt_filepath = f'slokas_location_in_lecture/{name}.txt'
-            audio_filepath = f"/Users/kishoriji/sadhana/audio/{name}.mp3"
-            export_path = f'slokas/{name}'
-            extract_audio(txt_filepath, audio_filepath, export_path)
+    name = 'Shruti Siddhant Saar/Shruti_Siddhant_Saar_2_12417'
+    txt_filepath = f'slokas_location_in_lecture/{name}.txt'
+    audio_filepath = f"/Users/kishoriji/sadhana/audio/{name}.mp3"
+    export_path = f'slokas/{name}'
+    extract_audio(txt_filepath, audio_filepath, export_path)
 
 
 if __name__ == '__main__':
