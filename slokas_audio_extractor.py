@@ -1,14 +1,7 @@
 from pydub import AudioSegment
 from pydub.playback import play
 
-
-def convert_time(str_time, offset):
-    parts = str_time.split(':')
-    m, s = map(int, parts[:2])
-    d = int(parts[2]) if len(parts) > 2 else 0
-    time_in_seconds = m * 60 + s + d / 10
-    return time_in_seconds + offset
-    # return time_in_seconds + 15
+from utils import convert_time
 
 
 def split_audio(filepath, start_time, end_time):
@@ -46,11 +39,11 @@ def main():
 
 
 def trim_one():
-    start = convert_time('10:13', 0)
-    end = convert_time('11:14', 0)
+    start = convert_time('1:57:41', 0)
+    end = convert_time('2:00:12', 0)
     output_file = 'tmp.mp3'
-    chunk = split_audio('/Users/kishoriji/Downloads/अपनी दिनचर्या को इस तरीके से संभालिये .mp3', start, end)
-    play(chunk)
+    chunk = split_audio('/Users/kishoriji/Downloads/tmp/output.mp3', start, end)
+    #play(chunk)
     chunk.export(output_file, format="mp3")
 
 
