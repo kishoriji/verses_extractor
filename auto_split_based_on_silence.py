@@ -86,7 +86,7 @@ def extract_audio(txt_filepath, audio_filepath, export_path):
 
 
 def main():
-    name = 'Shruti Siddhant Saar/Shruti_Siddhant_Saar_2_12417'
+    name = 'Shruti Siddhant Saar/Shruti_Siddhant_Saar_3_12418'
     txt_filepath = f'slokas_location_in_lecture/{name}.txt'
     audio_filepath = f"/Users/kishoriji/sadhana/audio/{name}.mp3"
     export_path = f'slokas/{name}'
