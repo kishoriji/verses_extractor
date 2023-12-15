@@ -52,6 +52,14 @@ def git_diff_lines(filepath):
     return changed_lines
 
 
+def get_all_lines(filepath):
+    lines = []
+    with open(filepath, encoding='utf-8') as f:
+        for line in f:
+            lines.append(line.strip())
+    return lines
+
+
 def extract_audio(txt_filepath, audio_filepath, export_path):
     slokas = []
 
@@ -59,6 +67,7 @@ def extract_audio(txt_filepath, audio_filepath, export_path):
     # offset = float(offset_line.strip())
     offset = 0
     lines = git_diff_lines(txt_filepath)
+    #lines = get_all_lines(txt_filepath)
     print(f'processing {len(lines)} lines')
     for line in lines:
         print(line)
