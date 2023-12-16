@@ -95,7 +95,7 @@ def extract_audio(txt_filepath, audio_filepath, export_path):
 
 
 def main():
-    name = 'brahm jeev maya/Brahm Jeev Maya Kya Hai 03 [aSekNB0qHSY]'
+    name = 'brahm jeev maya/Brahm Jeev Maya Kya Hai 04 [BCOGNSVq71s]'
     txt_filepath = f'slokas_location_in_lecture/{name}.txt'
     audio_filepath = f"/Users/kishoriji/sadhana/audio/{name}.mp3"
     export_path = f'slokas/{name}'
