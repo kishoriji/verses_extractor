@@ -39,11 +39,12 @@ def main():
 
 
 def trim_one():
-    start = convert_time('1:57:41', 0)
-    end = convert_time('2:00:12', 0)
+    start = convert_time('1:5:48', 0)
+    end = convert_time('1:7:42', 0)
     output_file = 'tmp.mp3'
-    chunk = split_audio('/Users/kishoriji/Downloads/tmp/output.mp3', start, end)
-    #play(chunk)
+    filepath = "/Users/kishoriji/sadhana/audio/OLD PRECIOUS GOLDEN SPEECH/Old Best General Speech VRINDAVAN⧸ MANGARH 90's_Jagadguru Shree Kripaluji Maharaj [KUw3aNvPL9Y].mp3"
+    chunk = split_audio(filepath, start, end)
+    play(chunk)
     chunk.export(output_file, format="mp3")
 
 

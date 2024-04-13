@@ -69,7 +69,8 @@ def extract_audio(txt_filepath, audio_filepath, export_path):
     lines = git_diff_lines(txt_filepath)
     #lines = get_all_lines(txt_filepath)
     print(f'processing {len(lines)} lines')
-    for line in lines:
+    for line in reversed(lines):
+    #for line in lines:
         print(line)
         items = [item.strip() for item in line.strip().split(',')]
         if len(items) < 3:
@@ -95,10 +96,11 @@ def extract_audio(txt_filepath, audio_filepath, export_path):
 
 
 def main():
-    name = 'brahm jeev maya/Brahm Jeev Maya Kya Hai 04 [BCOGNSVq71s]'
+    name = 'brahm jeev maya/Brahm Jeev Maya Kya Hai 16 [ei6Z8RaB2N0]'
     txt_filepath = f'slokas_location_in_lecture/{name}.txt'
-    audio_filepath = f"/Users/kishoriji/sadhana/audio/{name}.mp3"
+    audio_filepath = f"/Users/kishoriji/sadhana/audio/audio lectures/{name}.mp3"
     export_path = f'slokas/{name}'
+    print(txt_filepath)
     extract_audio(txt_filepath, audio_filepath, export_path)
 
 
