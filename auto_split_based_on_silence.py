@@ -1,3 +1,4 @@
+from datetime import datetime, timedelta
 import os
 
 from pydub import AudioSegment
@@ -37,6 +38,17 @@ def find_start_end_times(audio_segment, min_silence_len=500, silence_thresh=-40)
 import subprocess
 
 
+def increase_by_x(line, x):
+    items = [item.strip() for item in line.strip().split(',')]
+    if len(items) != 3:
+        raise Exception('Invalid line')
+    start = datetime.strptime(items[1], '%M:%S') + timedelta(seconds=x)
+    end = datetime.strptime(items[2], '%M:%S') + timedelta(seconds=x)
+    start_fmt = start.strftime('%M:%S')
+    end_fmt = end.strftime('%M:%S')
+    newline = ', '.join([items[0], start_fmt, end_fmt])
+    print(newline)
+
 def git_diff_lines(filepath):
     # Get the output of git diff command as a string
     diff_output = subprocess.check_output(['git', 'diff', 'HEAD', filepath]).decode()
@@ -67,10 +79,10 @@ def extract_audio(txt_filepath, audio_filepath, export_path):
     # offset = float(offset_line.strip())
     offset = 0
     lines = git_diff_lines(txt_filepath)
-    #lines = get_all_lines(txt_filepath)
+    lines = get_all_lines(txt_filepath)
     print(f'processing {len(lines)} lines')
-    for line in reversed(lines):
-    #for line in lines:
+    #for line in reversed(lines):
+    for line in lines:
         print(line)
         items = [item.strip() for item in line.strip().split(',')]
         if len(items) < 3:
@@ -79,6 +91,7 @@ def extract_audio(txt_filepath, audio_filepath, export_path):
         sloka_verse_no, start_time_str, end_time_str = items
         start_time, end_time = convert_time(start_time_str, offset), convert_time(end_time_str, offset)
         slokas.append((sloka_verse_no, start_time, end_time))
+        #increase_by_x(line, -108)
 
     sloka_counts = {}
     for sloka in slokas:
@@ -91,14 +104,14 @@ def extract_audio(txt_filepath, audio_filepath, export_path):
             sloka_counts[sloka_verse_no] += 1
             output_file = f"{export_path}/{sloka_verse_no}_{sloka_counts[sloka_verse_no]}.mp3"
         chunk = split_audio(audio_filepath, start_time, end_time)
-        play(chunk)
+        # play(chunk)
         chunk.export(output_file, format="mp3")
 
 
 def main():
-    name = 'brahm jeev maya/Brahm Jeev Maya Kya Hai 16 [ei6Z8RaB2N0]'
+    name = 'brahm jeev maya/Brahm Jeev Maya Kya Hai 20 [0eniqBNdBLU]'
     txt_filepath = f'slokas_location_in_lecture/{name}.txt'
-    audio_filepath = f"/Users/kishoriji/sadhana/audio/audio lectures/{name}.mp3"
+    audio_filepath = f"/Users/kishoriji/sadhana/audio/series/{name}.mp3"
     export_path = f'slokas/{name}'
     print(txt_filepath)
     extract_audio(txt_filepath, audio_filepath, export_path)
@@ -106,3 +119,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+    #increase_by_x('भाग ६-३-१९, 18:59, 19:09', 10)
