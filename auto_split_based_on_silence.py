@@ -11,7 +11,7 @@ from utils import convert_time
 def split_audio(filepath, start_time, end_time):
     start_time = start_time * 1000
     end_time = end_time * 1000
-    audio = AudioSegment.from_mp3(filepath)
+    audio = AudioSegment.from_file(filepath)
     chunk = audio[start_time:end_time]
 
     # fine-tune the start and end times based on silence
@@ -79,7 +79,7 @@ def extract_audio(txt_filepath, audio_filepath, export_path):
     # offset = float(offset_line.strip())
     offset = 0
     lines = git_diff_lines(txt_filepath)
-    lines = get_all_lines(txt_filepath)
+    #lines = get_all_lines(txt_filepath)
     print(f'processing {len(lines)} lines')
     #for line in reversed(lines):
     for line in lines:
@@ -104,12 +104,15 @@ def extract_audio(txt_filepath, audio_filepath, export_path):
             sloka_counts[sloka_verse_no] += 1
             output_file = f"{export_path}/{sloka_verse_no}_{sloka_counts[sloka_verse_no]}.mp3"
         chunk = split_audio(audio_filepath, start_time, end_time)
-        # play(chunk)
+        play(chunk)
         chunk.export(output_file, format="mp3")
 
 
 def main():
-    name = 'brahm jeev maya/Brahm Jeev Maya Kya Hai 20 [0eniqBNdBLU]'
+    #name = 'brahm jeev maya/Brahm Jeev Maya Kya Hai 22 [Kot3Rv9_U-E]'
+    name = 'Radha Tattva/Teri Kripa Kaa Bharosa Bhaari Radharani'
+    #name = 'Jeevatma/Jeevatma Pravachan-Part-2-1979'
+    #name  = 'Shruti Siddhant Saar/Shruti_Siddhant_Saar_5_12420'
     txt_filepath = f'slokas_location_in_lecture/{name}.txt'
     audio_filepath = f"/Users/kishoriji/sadhana/audio/series/{name}.mp3"
     export_path = f'slokas/{name}'
