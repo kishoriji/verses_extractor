@@ -49,6 +49,7 @@ def increase_by_x(line, x):
     newline = ', '.join([items[0], start_fmt, end_fmt])
     print(newline)
 
+
 def git_diff_lines(filepath):
     # Get the output of git diff command as a string
     diff_output = subprocess.check_output(['git', 'diff', 'HEAD', filepath]).decode()
@@ -79,9 +80,9 @@ def extract_audio(txt_filepath, audio_filepath, export_path):
     # offset = float(offset_line.strip())
     offset = 0
     lines = git_diff_lines(txt_filepath)
-    #lines = get_all_lines(txt_filepath)
+    lines = get_all_lines(txt_filepath)
     print(f'processing {len(lines)} lines')
-    #for line in reversed(lines):
+    # for line in reversed(lines):
     for line in lines:
         print(line)
         items = [item.strip() for item in line.strip().split(',')]
@@ -91,7 +92,7 @@ def extract_audio(txt_filepath, audio_filepath, export_path):
         sloka_verse_no, start_time_str, end_time_str = items
         start_time, end_time = convert_time(start_time_str, offset), convert_time(end_time_str, offset)
         slokas.append((sloka_verse_no, start_time, end_time))
-        #increase_by_x(line, -108)
+        # increase_by_x(line, -108)
 
     sloka_counts = {}
     for sloka in slokas:
@@ -109,10 +110,10 @@ def extract_audio(txt_filepath, audio_filepath, export_path):
 
 
 def main():
-    #name = 'brahm jeev maya/Brahm Jeev Maya Kya Hai 22 [Kot3Rv9_U-E]'
-    name = 'Radha Tattva/Teri Kripa Kaa Bharosa Bhaari Radharani'
-    #name = 'Jeevatma/Jeevatma Pravachan-Part-2-1979'
-    #name  = 'Shruti Siddhant Saar/Shruti_Siddhant_Saar_5_12420'
+    # name = 'brahm jeev maya/Brahm Jeev Maya Kya Hai 22 [Kot3Rv9_U-E]'
+    name = 'Radha Tattva/Radha Tatva 2,6-09-2000'
+    # name = 'Jeevatma/Jeevatma Pravachan-Part-2-1979'
+    name = 'Shruti Siddhant Saar/Shruti_Siddhant_Saar_2_12417'
     txt_filepath = f'slokas_location_in_lecture/{name}.txt'
     audio_filepath = f"/Users/kishoriji/sadhana/audio/series/{name}.mp3"
     export_path = f'slokas/{name}'
@@ -120,6 +121,14 @@ def main():
     extract_audio(txt_filepath, audio_filepath, export_path)
 
 
+def single_processor():
+    txt_filepath = 'slokas_location_in_lecture/sagun_sakar_rigveda.txt'
+    audio_filepath = "/Users/kishoriji/sadhana/audio/slokas mp3/upanishads/rigveda/rig_veda_sagaun_sakar.mp3"
+    export_path = 'slokas/sagun_sakar_rigveda'
+    print(txt_filepath)
+    extract_audio(txt_filepath, audio_filepath, export_path)
+
+
 if __name__ == '__main__':
-    main()
-    #increase_by_x('भाग ६-३-१९, 18:59, 19:09', 10)
+    single_processor()
+    # increase_by_x('भाग ६-३-१९, 18:59, 19:09', 10)
