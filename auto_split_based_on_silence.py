@@ -110,10 +110,10 @@ def extract_audio(txt_filepath, audio_filepath, export_path):
 
 
 def main():
-    # name = 'brahm jeev maya/Brahm Jeev Maya Kya Hai 22 [Kot3Rv9_U-E]'
-    name = 'Radha Tattva/Radha Tatva 2,6-09-2000'
+    name = 'brahm jeev maya/Brahm Jeev Maya Kya Hai 04 [BCOGNSVq71s]'
+    # name = 'Radha Tattva/Radha Tatva 2,6-09-2000'
     # name = 'Jeevatma/Jeevatma Pravachan-Part-2-1979'
-    name = 'Shruti Siddhant Saar/Shruti_Siddhant_Saar_2_12417'
+    # name = 'Shruti Siddhant Saar/Shruti_Siddhant_Saar_2_12417'
     txt_filepath = f'slokas_location_in_lecture/{name}.txt'
     audio_filepath = f"/Users/kishoriji/sadhana/audio/series/{name}.mp3"
     export_path = f'slokas/{name}'
@@ -122,13 +122,14 @@ def main():
 
 
 def single_processor():
-    txt_filepath = 'slokas_location_in_lecture/sagun_sakar_rigveda.txt'
-    audio_filepath = "/Users/kishoriji/sadhana/audio/slokas mp3/upanishads/rigveda/rig_veda_sagaun_sakar.mp3"
-    export_path = 'slokas/sagun_sakar_rigveda'
+    txt_filepath = 'tmp.txt'
+    audio_filepath = "/Users/kishoriji/sadhana/audio/slokas mp3/bhagwat/11_23_17.mp3"
+    export_path = 'slokas'
     print(txt_filepath)
     extract_audio(txt_filepath, audio_filepath, export_path)
 
 
 if __name__ == '__main__':
     single_processor()
+    # main()
     # increase_by_x('भाग ६-३-१९, 18:59, 19:09', 10)

@@ -1,5 +1,6 @@
 import os
 import shutil
+import urllib.parse
 
 mapping = {
     '0': '०',
@@ -120,5 +121,12 @@ def all_brahm_sutras_renamer():
             shutil.copy(f'{root}/{file}', f'/Users/kishoriji/sadhana/audio/slokas mp3/tmp/{eng_name}')
 
 
+def playlist_processor():
+    with open('slokas/playlists/sadhana.m3u', encoding='utf-8') as f:
+        for line in f:
+            if 'EXTINF' not in line:
+                print(urllib.parse.unquote(line.strip()))
+
 if __name__ == '__main__':
-    all_brahm_sutras_renamer()
+    #all_brahm_sutras_renamer()
+    playlist_processor()
