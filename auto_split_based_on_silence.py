@@ -13,6 +13,7 @@ def split_audio(filepath, start_time, end_time):
     end_time = end_time * 1000
     audio = AudioSegment.from_file(filepath)
     chunk = audio[start_time:end_time]
+    return chunk
 
     # fine-tune the start and end times based on silence
     start_silence, end_silence = find_start_end_times(chunk)
@@ -80,7 +81,7 @@ def extract_audio(txt_filepath, audio_filepath, export_path):
     # offset = float(offset_line.strip())
     offset = 0
     lines = git_diff_lines(txt_filepath)
-    lines = get_all_lines(txt_filepath)
+    #lines = get_all_lines(txt_filepath)
     print(f'processing {len(lines)} lines')
     # for line in reversed(lines):
     for line in lines:
@@ -110,7 +111,7 @@ def extract_audio(txt_filepath, audio_filepath, export_path):
 
 
 def main():
-    name = 'brahm jeev maya/Brahm Jeev Maya Kya Hai 04 [BCOGNSVq71s]'
+    name = 'brahm jeev maya/Brahm Jeev Maya Kya Hai 22 [Kot3Rv9_U-E]'
     # name = 'Radha Tattva/Radha Tatva 2,6-09-2000'
     # name = 'Jeevatma/Jeevatma Pravachan-Part-2-1979'
     # name = 'Shruti Siddhant Saar/Shruti_Siddhant_Saar_2_12417'
@@ -122,14 +123,14 @@ def main():
 
 
 def single_processor():
-    txt_filepath = 'tmp.txt'
-    audio_filepath = "/Users/kishoriji/sadhana/audio/slokas mp3/bhagwat/11_23_17.mp3"
-    export_path = 'slokas'
+    txt_filepath = 'slokas_location_in_lecture/bhaj_govindam.txt'
+    audio_filepath = "/Users/kishoriji/sadhana/audio/Bhaj_Govindam.mp3"
+    export_path = 'slokas/bhaj_govindam'
     print(txt_filepath)
     extract_audio(txt_filepath, audio_filepath, export_path)
 
 
 if __name__ == '__main__':
-    single_processor()
-    # main()
+    #single_processor()
+    main()
     # increase_by_x('भाग ६-३-१९, 18:59, 19:09', 10)

@@ -1,1 +1,241 @@
-11_23_17, 0:0, 16:7
+table|__EFMigrationsHistory|__EFMigrationsHistory|2|CREATE TABLE "__EFMigrationsHistory" (
+    "MigrationId" TEXT NOT NULL CONSTRAINT "PK___EFMigrationsHistory" PRIMARY KEY,
+    "ProductVersion" TEXT NOT NULL
+)
+index|sqlite_autoindex___EFMigrationsHistory_1|__EFMigrationsHistory|3|
+table|dhatu_classification|dhatu_classification|4|CREATE TABLE "dhatu_classification" (
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_dhatu_classification" PRIMARY KEY AUTOINCREMENT,
+    "EnglishName" TEXT NULL,
+    "Name" TEXT NULL
+)
+table|sqlite_sequence|sqlite_sequence|5|CREATE TABLE sqlite_sequence(name,seq)
+table|ghans|ghans|7|CREATE TABLE "ghans" (
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_ghans" PRIMARY KEY AUTOINCREMENT,
+    "EnglishName" TEXT NULL,
+    "Name" TEXT NULL
+)
+table|language|language|8|CREATE TABLE "language" (
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_language" PRIMARY KEY AUTOINCREMENT,
+    "LanguageName" TEXT NULL,
+    "LanguageShort" TEXT NULL,
+    "LanguagePhonetic" TEXT NULL
+)
+table|pad_types|pad_types|9|CREATE TABLE "pad_types" (
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_pad_types" PRIMARY KEY AUTOINCREMENT,
+    "EnglishName" TEXT NULL,
+    "Name" TEXT NULL
+)
+table|pratyay_classification|pratyay_classification|10|CREATE TABLE "pratyay_classification" (
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_pratyay_classification" PRIMARY KEY AUTOINCREMENT,
+    "EnglishName" TEXT NULL,
+    "Name" TEXT NULL
+)
+table|purush|purush|11|CREATE TABLE "purush" (
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_purush" PRIMARY KEY AUTOINCREMENT,
+    "Name" TEXT NULL,
+    "EnglishName" TEXT NULL
+)
+table|tenses|tenses|13|CREATE TABLE "tenses" (
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_tenses" PRIMARY KEY AUTOINCREMENT,
+    "Name" TEXT NULL,
+    "EnglishName" TEXT NULL
+)
+table|vachan|vachan|14|CREATE TABLE "vachan" (
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_vachan" PRIMARY KEY AUTOINCREMENT,
+    "Name" TEXT NULL,
+    "EnglishName" TEXT NULL
+)
+table|synonyms|synonyms|15|CREATE TABLE "synonyms" (
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_synonyms" PRIMARY KEY AUTOINCREMENT,
+    "RootWordId" INTEGER NULL,
+    "RelatedWordsId" INTEGER NULL,
+    CONSTRAINT "FK_synonyms_dictionary_root_RelatedWordsId" FOREIGN KEY ("RelatedWordsId") REFERENCES "dictionary_root" ("Id") ON DELETE RESTRICT,
+    CONSTRAINT "FK_synonyms_dictionary_root_RootWordId" FOREIGN KEY ("RootWordId") REFERENCES "dictionary_root" ("Id") ON DELETE RESTRICT
+)
+table|commentary|commentary|17|CREATE TABLE "commentary" (
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_commentary" PRIMARY KEY AUTOINCREMENT,
+    "Body" TEXT NULL,
+    "CommentaryTypeId" INTEGER NULL,
+    "SutraModelId" INTEGER NULL,
+    CONSTRAINT "FK_commentary_commentary_type_CommentaryTypeId" FOREIGN KEY ("CommentaryTypeId") REFERENCES "commentary_type" ("Id") ON DELETE RESTRICT,
+    CONSTRAINT "FK_commentary_sutra_master_SutraModelId" FOREIGN KEY ("SutraModelId") REFERENCES "sutra_master" ("Id") ON DELETE RESTRICT
+)
+table|dictionary_source|dictionary_source|23|CREATE TABLE "dictionary_source" (
+	"Id"	INTEGER NOT NULL,
+	"Source"	TEXT,
+	"Name"	TEXT,
+	CONSTRAINT "PK_dictionary_source" PRIMARY KEY("Id" AUTOINCREMENT)
+)
+table|definitions|definitions|27|CREATE TABLE "definitions" (
+	"Id"	INTEGER,
+	"DictionaryRootId"	INTEGER,
+	"DictionarySourceId"	INTEGER,
+	"LanguageId"	INTEGER,
+	"Meaning"	TEXT
+)
+index|IX_commentary_CommentaryTypeId|commentary|28|CREATE INDEX "IX_commentary_CommentaryTypeId" ON "commentary" ("CommentaryTypeId")
+index|IX_commentary_SutraModelId|commentary|29|CREATE INDEX "IX_commentary_SutraModelId" ON "commentary" ("SutraModelId")
+index|IX_synonyms_RelatedWordsId|synonyms|41|CREATE INDEX "IX_synonyms_RelatedWordsId" ON "synonyms" ("RelatedWordsId")
+index|IX_synonyms_RootWordId|synonyms|42|CREATE INDEX "IX_synonyms_RootWordId" ON "synonyms" ("RootWordId")
+table|commentary_type|commentary_type|12|CREATE TABLE "commentary_type" (
+	"Id"	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	"Commentary"	TEXT,
+	"Aurthor"	TEXT,
+	"Description"	TEXT,
+	"Name"	TEXT,
+	"orderid"	INTEGER
+)
+table|vachan_shabdroop|vachan_shabdroop|956|CREATE TABLE "vachan_shabdroop" (
+	"id"	INTEGER,
+	"name"	TEXT,
+	"english_name"	TEXT,
+	PRIMARY KEY("id")
+)
+table|vibhakti_shabdroop|vibhakti_shabdroop|955|CREATE TABLE "vibhakti_shabdroop" (
+	"id"	INTEGER,
+	"name"	TEXT,
+	"english_name"	TEXT,
+	PRIMARY KEY("id")
+)
+table|dhatu_lakar|dhatu_lakar|55435|CREATE TABLE "dhatu_lakar" (
+	"Id"	INTEGER NOT NULL,
+	"DhatuModelId"	INTEGER,
+	"TenseClassificationId"	INTEGER,
+	"QuantityClassificationId"	INTEGER,
+	"PersonClassificationId"	INTEGER,
+	"PadTypeId"	INTEGER,
+	"Form"	TEXT,
+	"Form_lipi"	TEXT,
+	CONSTRAINT "PK_dhatu_lakar" PRIMARY KEY("Id" AUTOINCREMENT),
+	CONSTRAINT "FK_dhatu_lakar_tenses_TenseClassificationId" FOREIGN KEY("TenseClassificationId") REFERENCES "tenses"("Id") ON DELETE RESTRICT,
+	CONSTRAINT "FK_dhatu_lakar_vachan_QuantityClassificationId" FOREIGN KEY("QuantityClassificationId") REFERENCES "vachan"("Id") ON DELETE RESTRICT,
+	CONSTRAINT "FK_dhatu_lakar_dhatus_DhatuModelId" FOREIGN KEY("DhatuModelId") REFERENCES "dhatus"("Id") ON DELETE RESTRICT,
+	CONSTRAINT "FK_dhatu_lakar_pad_types_PadTypeId" FOREIGN KEY("PadTypeId") REFERENCES "pad_types"("Id") ON DELETE RESTRICT,
+	CONSTRAINT "FK_dhatu_lakar_purush_PersonClassificationId" FOREIGN KEY("PersonClassificationId") REFERENCES "purush"("Id") ON DELETE RESTRICT
+)
+index|IX_dhatu_lakar_DhatuModelId|dhatu_lakar|20|CREATE INDEX "IX_dhatu_lakar_DhatuModelId" ON "dhatu_lakar" (
+	"DhatuModelId"
+)
+index|IX_dhatu_lakar_PadTypeId|dhatu_lakar|15832|CREATE INDEX "IX_dhatu_lakar_PadTypeId" ON "dhatu_lakar" (
+	"PadTypeId"
+)
+index|IX_dhatu_lakar_PersonClassificationId|dhatu_lakar|14496|CREATE INDEX "IX_dhatu_lakar_PersonClassificationId" ON "dhatu_lakar" (
+	"PersonClassificationId"
+)
+index|IX_dhatu_lakar_QuantityClassificationId|dhatu_lakar|15090|CREATE INDEX "IX_dhatu_lakar_QuantityClassificationId" ON "dhatu_lakar" (
+	"QuantityClassificationId"
+)
+index|IX_dhatu_lakar_TenseClassificationId|dhatu_lakar|13678|CREATE INDEX "IX_dhatu_lakar_TenseClassificationId" ON "dhatu_lakar" (
+	"TenseClassificationId"
+)
+table|shabdroop|shabdroop|17309|CREATE TABLE "shabdroop" (
+	"id"	INTEGER,
+	"word"	INTEGER,
+	"vibhakti"	INTEGER,
+	"vachan"	INTEGER,
+	"shabdroop"	TEXT,
+	"shabdroop_lipi"	TEXT,
+	PRIMARY KEY("id" AUTOINCREMENT),
+	FOREIGN KEY("vibhakti") REFERENCES "vibhakti_shabdroop"("id"),
+	FOREIGN KEY("word") REFERENCES "shabd"("id"),
+	FOREIGN KEY("vachan") REFERENCES "vachan_shabdroop"("id")
+)
+table|shabd|shabd|936|CREATE TABLE "shabd" (
+	"id"	INTEGER,
+	"name"	TEXT,
+	"name_lipi"	TEXT,
+	"prakriti"	TEXT,
+	"ling"	TEXT,
+	"akaradi_id"	INTEGER,
+	"akarant_id"	INTEGER,
+	PRIMARY KEY("id")
+)
+table|aakhyat_chandkrika|aakhyat_chandkrika|22|CREATE TABLE "aakhyat_chandkrika" (
+	"Id"	INTEGER NOT NULL,
+	"Meaning"	TEXT,
+	"Meaning_lipi"	TEXT,
+	CONSTRAINT "PK_chandkrika" PRIMARY KEY("Id" AUTOINCREMENT)
+)
+table|aakhyat_chandkrika_roop|aakhyat_chandkrika_roop|24|CREATE TABLE "aakhyat_chandkrika_roop" (
+	"Id"	INTEGER NOT NULL,
+	"ChandrikaModelId"	INTEGER,
+	"Forms"	TEXT,
+	"Forms_lipi"	TEXT,
+	CONSTRAINT "PK_chandrika_roop" PRIMARY KEY("Id" AUTOINCREMENT),
+	CONSTRAINT "FK_chandrika_roop_chandkrika_ChandrikaModelId" FOREIGN KEY("ChandrikaModelId") REFERENCES "aakhyat_chandkrika"("Id") ON DELETE RESTRICT
+)
+index|IX_chandrika_roop_ChandrikaModelId|aakhyat_chandkrika_roop|25|CREATE INDEX "IX_chandrika_roop_ChandrikaModelId" ON "aakhyat_chandkrika_roop" (
+	"ChandrikaModelId"
+)
+table|pratyays|pratyays|949|CREATE TABLE "pratyays" (
+	"Id"	INTEGER NOT NULL,
+	"DhatuModelId"	INTEGER,
+	"Morph"	TEXT,
+	"Morph_lipi"	TEXT,
+	"PratyayClassificationId"	INTEGER,
+	CONSTRAINT "PK_pratyays" PRIMARY KEY("Id" AUTOINCREMENT),
+	CONSTRAINT "FK_pratyays_dhatus_DhatuModelId" FOREIGN KEY("DhatuModelId") REFERENCES "dhatus"("Id") ON DELETE RESTRICT,
+	CONSTRAINT "FK_pratyays_pratyay_classification_PratyayClassificationId" FOREIGN KEY("PratyayClassificationId") REFERENCES "pratyay_classification"("Id") ON DELETE RESTRICT
+)
+index|IX_pratyays_DhatuModelId|pratyays|21|CREATE INDEX "IX_pratyays_DhatuModelId" ON "pratyays" (
+	"DhatuModelId"
+)
+index|IX_pratyays_PratyayClassificationId|pratyays|17354|CREATE INDEX "IX_pratyays_PratyayClassificationId" ON "pratyays" (
+	"PratyayClassificationId"
+)
+table|sutra_master|sutra_master|17427|CREATE TABLE "sutra_master" (
+	"Id"	INTEGER NOT NULL,
+	"Adhyay"	INTEGER NOT NULL,
+	"Pada"	INTEGER NOT NULL,
+	"SutraIndex"	INTEGER NOT NULL,
+	"Sutra"	TEXT,
+	"sutra_lipi"	TEXT,
+	"Vrutti"	TEXT,
+	"Topic"	TEXT,
+	"Sk_Num"	INTEGER,
+	CONSTRAINT "PK_sutra_master" PRIMARY KEY("Id" AUTOINCREMENT)
+)
+table|dhatus|dhatus|17989|CREATE TABLE "dhatus" (
+	"Id"	INTEGER NOT NULL,
+	"OriginalDhatu"	TEXT,
+	"OriginalDhatu_lipi"	TEXT,
+	"ShortDhatu"	TEXT,
+	"ShortDhatu_lipi"	TEXT,
+	"MeaningSanskrit"	TEXT,
+	"MeaningHindi"	TEXT,
+	"MeaningEnglish"	TEXT,
+	"GhanId"	INTEGER,
+	"PadTypeId"	INTEGER,
+	"ClassificationId"	INTEGER,
+	"SetAnit"	INTEGER NOT NULL,
+	"DhatuPaatId"	TEXT,
+	"SetAnitVit"	TEXT,
+	CONSTRAINT "PK_dhatus" PRIMARY KEY("Id" AUTOINCREMENT),
+	CONSTRAINT "FK_dhatus_ghans_GhanId" FOREIGN KEY("GhanId") REFERENCES "ghans"("Id") ON DELETE RESTRICT,
+	CONSTRAINT "FK_dhatus_pad_types_PadTypeId" FOREIGN KEY("PadTypeId") REFERENCES "pad_types"("Id") ON DELETE RESTRICT,
+	CONSTRAINT "FK_dhatus_dhatu_classification_ClassificationId" FOREIGN KEY("ClassificationId") REFERENCES "dhatu_classification"("Id") ON DELETE RESTRICT
+)
+index|IX_dhatus_ClassificationId|dhatus|16|CREATE INDEX "IX_dhatus_ClassificationId" ON "dhatus" (
+	"ClassificationId"
+)
+index|IX_dhatus_GhanId|dhatus|1073|CREATE INDEX "IX_dhatus_GhanId" ON "dhatus" (
+	"GhanId"
+)
+index|IX_dhatus_PadTypeId|dhatus|1079|CREATE INDEX "IX_dhatus_PadTypeId" ON "dhatus" (
+	"PadTypeId"
+)
+table|dictionary_root|dictionary_root|1085|CREATE TABLE "dictionary_root" (
+	"Id"	INTEGER NOT NULL,
+	"RootWord"	TEXT,
+	"RootWord_lipi"	TEXT,
+	CONSTRAINT "PK_dictionary_root" PRIMARY KEY("Id" AUTOINCREMENT)
+)
+table|Ganpath|Ganpath|6|CREATE TABLE "Ganpath" (
+	"Id"	INTEGER NOT NULL,
+	"GhanName"	TEXT,
+	"GhanName_lipi"	TEXT,
+	"SutraName"	TEXT,
+	"SutraNumber"	NUMERIC,
+	"GhanPaath"	TEXT,
+	PRIMARY KEY("Id" AUTOINCREMENT)
+)
