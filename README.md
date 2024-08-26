@@ -6,11 +6,10 @@ Automated Segmentation of Sanskrit and Hindi Verses from Lectures by Jagadguru S
 This repository contains code designed to segment and extract Sanskrit and Hindi verses from lectures. The tool focuses on identifying and isolating verses from sacred texts such as the Ramayana, Bhagavad Gita, Bhagwat Purana, and various Shastras, creating smaller MP3 files for each verse.
 
 ## Features
-
-    Targeted Verse Extraction: Identifies and extracts verses from the Ramayana, Gita, Bhagwat, Shastra, and other sacred texts during lectures based on a txt file provided with start end of verses.
-    Language-Specific Segmentation: Focuses on Sanskrit and Hindi verses, ensuring accurate and meaningful segmentation.
-    Output in MP3 Format: Each extracted verse is saved as a separate MP3 file, preserving the original audio quality.
-    Customizable Parameters: Allows users to fine-tune the extraction criteria, such as silence detection thresholds and minimum verse length.
+* Targeted Verse Extraction: Identifies and extracts verses from the Ramayana, Gita, Bhagwat, Shastra, and other sacred texts during lectures based on a txt file provided with start end of verses.
+* Language-Specific Segmentation: Focuses on Sanskrit and Hindi verses, ensuring accurate and meaningful segmentation.
+* Output in MP3 Format: Each extracted verse is saved as a separate MP3 file, preserving the original audio quality.
+* Customizable Parameters: Allows users to fine-tune the extraction criteria, such as silence detection thresholds and minimum verse length.
 
 ## Purpose
 
