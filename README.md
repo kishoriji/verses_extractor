@@ -3,7 +3,7 @@ Automated Segmentation of Sanskrit and Hindi Verses from Lectures by Jagadguru S
 
 ## Repository Content
 
-This repository contains code designed to automatically segment and extract Sanskrit and Hindi verses from lectures. The tool focuses on identifying and isolating verses from sacred texts such as the Ramayana, Bhagavad Gita, Bhagwat Purana, and various Shastras, creating smaller MP3 files for each verse.
+This repository contains code designed to segment and extract Sanskrit and Hindi verses from lectures. The tool focuses on identifying and isolating verses from sacred texts such as the Ramayana, Bhagavad Gita, Bhagwat Purana, and various Shastras, creating smaller MP3 files for each verse.
 
 ## Features
 
